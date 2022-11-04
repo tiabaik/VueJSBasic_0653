@@ -1,0 +1,31 @@
+* { 
+    margin: 0; 
+    padding: 0; 
+} 
+
+body { 
+    font-family: 'Times New Roman'; 
+    background-color: whitesmoke; 
+}
+
+#app{
+    padding-top: 20px;
+}
+
+#app .peraturan{
+    padding-top: 50px;
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+#app .footer{
+    width: 100%;
+    height: 50px;
+    padding-left: 10px;
+    line-height: 50px;
+    background-color: rgba(0, 0, 0, 0.2);
+    color: rgb(34, 34, 34);
+    position: absolute;
+    bottom: 0px;
+    text-align: center;
+}

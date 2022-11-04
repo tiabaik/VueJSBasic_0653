@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UGD Vue Basic</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="style.css"> 
+    <link rel="stylesheet"
+     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"> 
+     
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" 
+     rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" 
+     crossorigin="anonymous">
+</head>
+<body>
+
+    <div id="app">
+        <h1 class="text-center">Number Guessing Game</h1>
+
+        <div class="peraturan">
+            <p>1.Each player gets 4 chances to guess</p>
+            <p>2.Number range is between 1 - 10</p>
+            <p>3.You can reset the number after 4 wrong answer</p>
+            
+        <div
+            v-if="permainan.berhasilMenebak =='berhasil'">
+    
+
+            <div class="alert alert-success" role="alert">
+                Selamat Anda berhasil memainkan permainan mudah ini
+              </div>
+
+            <button @click="reset" class="btn btn-primary">Start Game</button>
+
+        </div>
+
+        
+        <div
+           v-else-if="permainan.berhasilMenebak == 'gagal'">
+           
+
+           <div class="alert alert-danger" role="alert">
+            Haduhh coba lagi ya kurang beruntung nebak 4 kali salah terus
+          </div>
+
+          <button @click="reset" class="btn btn-primary">Start Game</button>
+
+        </div>
+        
+
+        <div
+            v-else="">
+            <div class="permainan">
+                <h3>Input your number here</h3>
+
+                <div class="alert alert-secondary" role="alert">
+                    <input type="text" class="form-control" v-model="permainan.angkaInput" id="inputNumber" placeholder="1,2,3, ...">
+                  </div>
+        
+            
+            <div
+                v-if="permainan.angkaInput > 10 || permainan.angkaInput < 0">
+                hello inputan 1 - 10 
+            </div>
+
+                <br>
+                
+                <div class="alert alert-danger" role="alert">
+                    number of tries — {{permainan.kesempatan}}!
+                  </div>
+
+                <div 
+                    v-if="permainan.angkaInput == permainan.angka && permainan.kesempatan > 0 ">
+                    <button @click="berhasil" class="btn btn-primary">Start Game</button>
+                    
+                </div>
+
+
+                <div 
+                    v-else-if ="permainan.kesempatan > 1 && permainan.angkaInput != permainan.angka ">
+                    <button @click="kurangiKesempatan" class="btn btn-primary">Start Game</button>
+                </div>
+
+                <div 
+                    v-else-if ="permainan.kesempatan == 1 && permainan.angkaInput != permainan.angka  ">
+                    <button @click="gagal" class="btn btn-primary">Start Game</button>
+                </div>
+                
+                
+              
+                   
+            </div>
+
+        </div>
+
+        
+
+        <footer id >
+            <div class="footer, text-center">
+              {{praktikan.nama}} | {{praktikan.npm}} | {{praktikan.kelas}}
+            </div>
+          </footer>
+    </div>
+    
+    <script>
+        const { createApp } = Vue
+      
+        createApp({
+          data() {
+                return {
+                praktikan:
+                    {
+                        nama: 'Tia Vianka Yustin',
+                        npm: '200710653',
+                        kelas: 'Pemrograman Web A',
+                    },
+
+                    permainan:
+                    {
+                        angka: Math.ceil(Math.random()*10),
+                        kesempatan: 4,
+                        angkaInput: null,
+                        berhasilMenebak:'',
+                
+                    },
+                }
+          },
+
+          methods: {
+            kurangiKesempatan()
+            {
+                this.permainan.kesempatan--;
+                berhasil();
+            },
+
+            berhasil(){
+                    this.permainan.berhasilMenebak= 'berhasil';
+
+            },
+
+            gagal(){
+                    this.permainan.berhasilMenebak= 'gagal';
+
+            },
+
+            reset(){
+                        this.permainan.angka=Math.ceil(Math.random()*10),
+                        this.permainan.kesempatan=4,
+                        this.permainan.angkaInput= null,
+                        this.permainan.berhasilMenebak=''
+            },
+
+           }
+        }).mount('#app')
+      </script>
+</body>
+
+</html>
