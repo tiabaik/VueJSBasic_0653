@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas Vue Basic</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="style2.css"> 
+    <link rel="stylesheet"
+     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"> 
+     
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" 
+     rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" 
+     crossorigin="anonymous">
+</head>
+<body>
+
+    <div id="app">
+
+      <div class="row">
+          <div class="col-sm-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="text-center card-title alert alert-warning" role="alert">Simple To Do List</h5>
+
+                <div class="tampian1 ">
+                  <label for="exampleFormControlInput1" class="form-label">Apa yang ingin anda tampilkan</label>
+                  <input type="tampil" class="form-control" id="input kegiatan" v-model="item.tampil" placeholder="menyapu, makan,...... ">
+                </div>
+                <div class="tampian12 ">
+                  <label for="exampleFormControlInput1" class="form-label mt-4">penting gak ? </label>
+                  <select class="form-control form-control-sm" v-model="item.penting">
+                      <option value="penting">Penting</option>
+                      <option value="biasa">Biasa</option>
+                      <option value="tidak penting">Tidak Penting</option>
+                  </select>
+                </div>
+                <div class="tampilan3">
+                  <label for="exampleFormControlTextarea1" class="form-label mt-4">Ada Catatan</label>
+                  <textarea class="form-control" id="input catatan" v-model="item.catat" rows="3"></textarea>
+                </div>
+    
+                <button type="submit" class="btn btn-primary center m-1" @click="newItem">Submit</button>
+                <button type="Resert" class="btn btn-success center m-1" @click="resetItem">Resert</button>
+            
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-sm-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="text-center card-title alert alert-warning" role="alert" >MY TO DO LIST </h5>
+                <div>
+      
+
+                  <div  class="alert alert-info" role="alert" v-for="test in todo" key: ="index" >
+                  <div v-if="test.penting=='penting'">
+                      <span class="badge text-bg-dark">{{test.penting}}</span>
+                    {{test.tampil}}
+                    {{test.catat}} 
+
+                    <p class="d-grid gap-2 d-md-flex justify-content-md-end">
+                      <button type="delete" class="btn btn-danger me-md-2" @click="delItem">delete</button>
+                    </p>
+                    
+
+                  </div>
+
+                  <div v-if="test.penting=='biasa'">
+                      <span class="badge bg-primary">{{test.penting}}</span>
+                    {{test.tampil}}
+                    {{test.catat}}
+
+                    <p class="d-grid gap-2 d-md-flex justify-content-md-end">
+                      <button type="delete" class="btn btn-danger me-md-2" @click="delItem">delete</button>
+                    </p>
+
+                  </div>
+
+                  <div v-if="test.penting=='tidak penting'">
+                      <span class="badge bg-success">{{test.penting}}</span>
+                    {{test.tampil}}
+                    {{test.catat}}  
+                    <p class="d-grid gap-2 d-md-flex justify-content-md-end">
+                      <button type="delete" class="btn btn-danger me-md-2" @click="delItem">delete</button>
+                    </p>
+                  </div>
+      
+                    </div>
+      
+
+      
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+  
+        <footer>
+            <div class="text-center mt-md-5">
+              {{praktikan.nama}} | {{praktikan.npm}} | {{praktikan.kelas}}
+            </div>
+          </footer>
+    </div>
+    
+    <script>
+        const { createApp } = Vue
+      
+        createApp({
+          data() {
+                return {
+                praktikan:
+                    {
+                        nama: 'Tia Vianka Yustin',
+                        npm: '200710653',
+                        kelas: 'Pemrograman Web A',
+                    },
+
+                    item:{
+                        tampil:'',
+                        penting:'',
+                        catat:'',
+                    },
+
+              
+                
+                todo:[],
+                badge:null
+
+                }
+          },
+
+          methods: { 
+            newItem()
+            {
+              if(this.item.tampil != '' && this.item.penting != '' && this.item.catat != ''){
+                        this.todo.push(this.item)
+                        this.resetItem()
+                    }
+            },
+
+            delItem(del) 
+            {
+  
+             this.todo.splice(del, 1);
+            },
+
+            resetItem(){
+                    this.item={
+                        tampil:'',
+                        penting:'',
+                        catat:'',
+                    }
+                }
+
+          }
+        }).mount('#app')
+      </script>
+</body>
+
+</html>
